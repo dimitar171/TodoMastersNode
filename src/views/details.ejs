@@ -1,0 +1,61 @@
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/site.css" />
+</head>
+
+  <div class="container">
+    <main role="main" class="pb-3">
+        <div>
+
+            <h4>Todo Details</h4>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Title
+                </dt>
+                <dd class="col-sm-10">
+        
+                    <%=details.title%>
+                </dd>
+        
+                <!-- Dont show if there is no description -->
+              
+                    <dt class="col-sm-2">
+                        Description
+                    </dt>
+                    <dd class="col-sm-10">
+                        <%=details.description%>
+                    </dd>
+                
+                <dt class="col-sm-2">
+                   Status
+                </dt>
+                <dd class="col-sm-10">
+                    <%=details.Status%>
+                </dd>
+                <dt class="col-sm-2">
+                    DueDate
+                </dt>
+                <dd class="col-sm-10">
+                    <%=details.DueDate%>
+                </dd>
+                <dt class="col-sm-2">
+                    CreatedAtDate
+                </dt>
+                <dd class="col-sm-10">
+                    <%=details.CreatedAt%>
+                </dd>
+                <dt class="col-sm-2">
+                    UpdatedAtDate
+                </dt>
+                <dd class="col-sm-10">
+                    <%=details.UpdatedAt%>
+                </dd>
+            </dl>
+        </div>
+    </main>
+</div>
+<script src="../lib/jquery/dist/jquery.min.js"></script>
+<script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/site.js" asp-append-version="true"></script>
