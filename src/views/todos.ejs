@@ -2,117 +2,91 @@
 <html>
 
 <head>
-  <title>TODO Masters</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css" />
+    <%- include('partials/head'); %>
 </head>
 <body>
     
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-    <script src="../lib/jquery/dist/jquery.min.js"></script>
-    <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/site.js" asp-append-version="true"></script>
+    <%- include('partials/header'); %>
 </header>
 
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
+<div class="container">
+    <main role="main" class="pb-3">
+        <p>
+            <a href="/create">Add a new TODO</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        DueDate
+                    </th>
+                    <th>
+                        CreatedAt
+                    </th>
+                    <th>
+                        UpdatedAtDate
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <div class="container">
+            <tbody>
+             <% todos.map((todos,index)=>{%>
+                    <tr>
+                        <td>
+                            <a href="/todos/<%=index%>"><%=todos.title%></a>
+                        </td>
+                        <td>
+                            <%=todos.description%>
+                        </td>
+                        <td>
+                            <%=todos.DueDate%>
+                        </td>
+                        <td>
+                            <%=todos.CreatedAt%>
+                        </td>
+                        <td>
+                            <%=todos.UpdatedAt%>
+                        </td>
+                        <td> 
+                            <input type="checkbox" id="vehicle1" name="vehicle1" value="true">
+                            <label for="vehicle1"> <%=todos.status%></label><br>  
+                      
+                        </td>
+                        <td>
+                            <a href="/todos/<%=index%>/edit">Edit</a> |
+                            <a data-toggle="modal" href="#exampleModal">
+                                Delete
+                            </a>
         
-            <th>
-                Description
-            </th>
-            <th>
-                DueDate
-            </th>
-            <th>
-                CreatedAt
-            </th>
-            <th>
-                UpdatedAtDate
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    </thead>
-    <div class="container">
-    <tbody>
-     <% todos.map((todos,index)=>{%>
-            <tr>
-                <td>
-                    <a href="/todos/<%=index%>"><%=todos.title%></a>
-                </td>
-                <td>
-                    <%=todos.description%>
-                </td>
-                <td>
-                    <%=todos.DueDate%>
-                </td>
-                <td>
-                    <%=todos.CreatedAt%>
-                </td>
-                <td>
-                    <%=todos.UpdatedAt%>
-                </td>
-                <td>
-                    <%=todos.Status%>
-                </td>
-                <td>
-                    <a href="/todos/<%=index%>/edit">Edit</a>|
-                    <a data-toggle="modal" href="#exampleModal">
-                        Delete
-                    </a>
-
-                    <!-- Popup modal for DELETE-->
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Delete confirmation</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you shure you want to delete this TODO?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <form asp-action="Delete" asp-route-id="@item.Id">
-                                        <input type="submit" value="Delete" class="btn btn-danger" />
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </td>
-            </tr>
-        <%}) %>
+                            <!-- Popup modal for DELETE-->
         
-    </tbody>
-   
+                            <%- include('partials/delete'); %>
+        
+                        </td>
+                    </tr>
+                <%}) %>
+                
+            </tbody>
+           
+        </div>
+        </table>
+    </main>
 </div>
-</table>
+
 </body>
 </html>

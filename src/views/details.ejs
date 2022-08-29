@@ -1,10 +1,11 @@
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/site.css" />
+    <%- include('partials/head'); %>
 </head>
 
+<body>
+    <header>
+        <%- include('partials/header'); %>
+    </header>
   <div class="container">
     <main role="main" class="pb-3">
         <div>
@@ -32,7 +33,7 @@
                    Status
                 </dt>
                 <dd class="col-sm-10">
-                    <%=details.Status%>
+                    <%=details.status%>
                 </dd>
                 <dt class="col-sm-2">
                     DueDate
@@ -52,10 +53,20 @@
                 <dd class="col-sm-10">
                     <%=details.UpdatedAt%>
                 </dd>
+                <dd class="col-sm-10">
+                    <a href="/todos/<%=details.id%>/edit">Edit</a> |
+                    <a href="/todos">Back</a> |
+                <a data-toggle="modal" href="#exampleModal">
+                    Delete
+                </a>
+                <%- include('partials/delete'); %>
+            </dd>
             </dl>
+         
         </div>
+        
+
     </main>
 </div>
-<script src="../lib/jquery/dist/jquery.min.js"></script>
-<script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../js/site.js" asp-append-version="true"></script>
+
+</body>
