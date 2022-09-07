@@ -17,7 +17,7 @@
                 </dt>
                 <dd class="col-sm-10">
         
-                    <%=details.title%>
+                    <%=todos.title%>
                 </dd>
         
                 <!-- Dont show if there is no description -->
@@ -26,40 +26,47 @@
                         Description
                     </dt>
                     <dd class="col-sm-10">
-                        <%=details.description%>
+                        <%=todos.description%>
                     </dd>
                 
                 <dt class="col-sm-2">
                    Status
                 </dt>
                 <dd class="col-sm-10">
-                    <%=details.status%>
+                    <%=todos.status%>
                 </dd>
                 <dt class="col-sm-2">
                     DueDate
                 </dt>
                 <dd class="col-sm-10">
-                    <%=details.DueDate%>
+                    <%=todos.DueDate%>
                 </dd>
                 <dt class="col-sm-2">
                     CreatedAtDate
                 </dt>
                 <dd class="col-sm-10">
-                    <%=details.CreatedAt%>
+                    <%=todos.CreatedAt%>
                 </dd>
                 <dt class="col-sm-2">
                     UpdatedAtDate
                 </dt>
                 <dd class="col-sm-10">
-                    <%=details.UpdatedAt%>
+                    <%=todos.UpdatedAt%>
                 </dd>
                 <dd class="col-sm-10">
-                    <a href="/todos/<%=details.id%>/edit">Edit</a> |
+                    <a href="/todos/<%=todos._id%>/edit">Edit</a> |
                     <a href="/todos">Back</a> |
-                <a data-toggle="modal" href="#exampleModal">
-                    Delete
-                </a>
-                <%- include('partials/delete'); %>
+                    <form class="d-inline" method="POST" action="/todos/<%=todos._id%>/delete?_method=DELETE">
+                                        
+                        <a data-toggle="modal" href="#exampleModal<%=todos.id%>">
+                            Delete
+                        </a>
+                      
+
+                    <!-- Popup modal for DELETE-->
+
+                    <%- include('partials/delete'); %>
+                </form>
             </dd>
             </dl>
          

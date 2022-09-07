@@ -4,89 +4,98 @@
 <head>
     <%- include('partials/head'); %>
 </head>
+
 <body>
-    
-<header>
-    <%- include('partials/header'); %>
-</header>
+
+    <header>
+        <%- include('partials/header'); %>
+    </header>
 
 
-<div class="container">
-    <main role="main" class="pb-3">
-        <p>
-            <a href="/create">Add a new TODO</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Title
-                    </th>
-                
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        DueDate
-                    </th>
-                    <th>
-                        CreatedAt
-                    </th>
-                    <th>
-                        UpdatedAtDate
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <div class="container">
-            <tbody>
-             <% todos.map((todos,index)=>{%>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <p>
+                <a href="/create">Add a new TODO</a>
+            </p>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            <a href="/todos/<%=index%>"><%=todos.title%></a>
-                        </td>
-                        <td>
-                            <%=todos.description%>
-                        </td>
-                        <td>
-                            <%=todos.DueDate%>
-                        </td>
-                        <td>
-                            <%=todos.CreatedAt%>
-                        </td>
-                        <td>
-                            <%=todos.UpdatedAt%>
-                        </td>
-                        <td> 
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="true">
-                            <label for="vehicle1"> <%=todos.status%></label><br>  
-                      
-                        </td>
-                        <td>
-                            <a href="/todos/<%=index%>/edit">Edit</a> |
-                            <a data-toggle="modal" href="#exampleModal">
-                                Delete
-                            </a>
-        
-                            <!-- Popup modal for DELETE-->
-        
-                            <%- include('partials/delete'); %>
-        
-                        </td>
+                        <th>
+                            Title
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            DueDate
+                        </th>
+                        <th>
+                            CreatedAt
+                        </th>
+                        <th>
+                            UpdatedAtDate
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
                     </tr>
-                <%}) %>
+                </thead>
+                <div class="container">
+                    <tbody>
+                        <% todos.map((todos,index)=>{%>
+                            <tr>
+                                <td>
+                                    <a href="/todos/<%=todos._id%>">
+                                        <%=todos.title%>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%=todos.description%>
+                                </td>
+                                <td>
+                                    <%=todos.DueDate%>
+                                </td>
+                                <td>
+                                    <%=todos.CreatedAt%>
+                                </td>
+                                <td>
+                                    <%=todos.UpdatedAt%>
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="true">
+                                    <label for="vehicle1">
+                                        <%=todos.status%>
+                                    </label><br>
+
+                                </td>
+                                <td>
+                                    <a href="/todos/<%=todos._id%>/edit">Edit</a> |
+                                    <form method="POST" action="/todos/<%=todos._id%>/delete?_method=DELETE">
+                                        
+                                        <a data-toggle="modal" href="#exampleModal<%=todos.id%>" >
+                                            Delete
+                                        </a>
+                                      
                 
-            </tbody>
-           
-        </div>
-        </table>
-    </main>
-</div>
+                                    <!-- Popup modal for DELETE-->    
+                                    <%- include('partials/delete'); %>
+
+                                </form>
+                                </td>
+                            </tr>
+                            <%}) %>
+
+                    </tbody>
+
+                </div>
+            </table>
+        </main>
+    </div>
 
 </body>
+
 </html>
