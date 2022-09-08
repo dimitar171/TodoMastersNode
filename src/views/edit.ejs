@@ -15,7 +15,7 @@
             <h3>Edit TODO</h3>
             <div class="row">
                 <div class="col-md-4">
-                    <form method="POST" action="/todos/<%=todos._id%>/edit?_method=PUT">
+                    <form method="POST" action="edit?_method=PATCH">
                         <div class="form-group">
                             <label for="title" class="control-label">Title</label>
                             <input type="text" id="title" name="title" class="form-control" />

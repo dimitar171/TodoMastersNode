@@ -1,0 +1,96 @@
+
+const Todo = require('./../models/todoModel');
+
+exports.createTodo = async (req, res) => {
+    try {
+        await Todo.create(req.body);
+        res.redirect('/todos');    
+    } catch (err) {
+        res.status(400).json({
+            status: 'fails',
+            message: 'Invalid data sent!'
+        });
+    }
+};
+
+exports.getAllTodos = async (req, res) => {
+    try {
+        const todos = await Todo.find();
+        res.render('todos', { todos });
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+};
+
+exports.getCreateTodo = async (req, res) => {
+    try {
+        res.render('create');
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+};
+
+exports.getTodo = async (req, res) => {
+   
+    try {
+        const todos =  await Todo.findById(req.params.id);
+        res.render('details', { 
+            todos, 
+        });       
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+};
+
+exports.getEditTodo = async (req, res) => {
+   
+    try {
+        const todos =  await Todo.findById(req.params.id);
+        res.render('edit', { 
+            todos, 
+        });
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+};
+
+exports.updateTodo = async (req, res) => {
+   
+    try {
+        const todos =  await Todo.findByIdAndUpdate(req.params.id,req.body,{
+            new:true,
+            runValidators:true
+        });
+        res.redirect('/todos');  
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+};
+
+exports.deleteTodo = async (req, res) => {
+   
+    try {
+        await Todo.findByIdAndDelete(req.params.id);
+        res.redirect('/todos');  
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+};
