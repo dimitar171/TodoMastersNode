@@ -10,7 +10,8 @@ const todoSchema=new mongoose.Schema({
         type: String
     },
     dueDate:{
-        type:Date
+        type:Date,
+        min:[Date.now,'cannot be a date in the past']
     },
     status:{
         type:Boolean,
