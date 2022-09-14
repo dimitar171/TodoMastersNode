@@ -66,11 +66,12 @@
                                     <%=todos.updatedAt%>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="true">
-                                    <label for="vehicle1">
-                                        <%=todos.status%>
-                                    </label><br>
-
+                                    
+                                    <% if(todos.status === true){ %>
+                                        <input type="checkbox" id="status" name="status" value="true" checked disabled>
+                                    <% } else{ %>
+                                        <input type="checkbox" id="status" name="status" value="false" disabled>
+                                    <% } %>
                                 </td>
                                 <td>
                                     <a href="/todos/<%=todos._id%>/edit">Edit</a> |

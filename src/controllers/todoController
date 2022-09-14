@@ -73,6 +73,9 @@ exports.updateTodo = async (req, res) => {
             new:true,
             runValidators:true
         });
+        const {id} =req.params
+        const {status}=req.body
+        console.log(id,status)
         res.redirect('/todos');  
     } catch (err) {
         res.status(404).json({
