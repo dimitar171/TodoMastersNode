@@ -4,7 +4,7 @@ const Todo = require('./../models/todoModel');
 exports.createTodo = async (req, res) => {
     try {
         await Todo.create(req.body);
-        res.redirect('/todos');    
+        res.redirect('/todos');
     } catch (err) {
         res.status(400).json({
             status: 'fails',
@@ -13,17 +13,29 @@ exports.createTodo = async (req, res) => {
     }
 };
 
-exports.getAllTodos = async (req, res) => {
-    try {
-        const todos = await Todo.find();
-        res.render('todos', { todos });
-    } catch (err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err
-        });
-    }
-};
+
+exports.getAllTodos =  (req, res, next) => {
+    var perPage = req.query.pageSize ||3
+    var page = req.query.page || 1
+    var checked= req.query.checked || 0
+    var searched=req.query.searchString || ''
+    console.log(searched)
+
+    Todo
+        .find({})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function (err, todos) {
+            Todo.count().exec(function (err, count) {
+                if (err) return next(err)
+                res.render('todos', {
+                    todos: todos.filter(todo=>todo.title.includes(searched) && todo.status== checked),
+                    current: page,
+                    pages: Math.ceil(count / perPage)
+                })
+            })
+        })
+}
 
 exports.getCreateTodo = async (req, res) => {
     try {
@@ -37,12 +49,12 @@ exports.getCreateTodo = async (req, res) => {
 };
 
 exports.getTodo = async (req, res) => {
-   
+
     try {
-        const todos =  await Todo.findById(req.params.id);
-        res.render('details', { 
-            todos, 
-        });       
+        const todos = await Todo.findById(req.params.id);
+        res.render('details', {
+            todos,
+        });
     } catch (err) {
         res.status(404).json({
             status: 'fail',
@@ -52,11 +64,11 @@ exports.getTodo = async (req, res) => {
 };
 
 exports.getEditTodo = async (req, res) => {
-   
+
     try {
-        const todos =  await Todo.findById(req.params.id);
-        res.render('edit', { 
-            todos, 
+        const todos = await Todo.findById(req.params.id);
+        res.render('edit', {
+            todos,
         });
     } catch (err) {
         res.status(404).json({
@@ -67,16 +79,16 @@ exports.getEditTodo = async (req, res) => {
 };
 
 exports.updateTodo = async (req, res) => {
-   
+
     try {
-        const todos =  await Todo.findByIdAndUpdate(req.params.id,req.body,{
-            new:true,
-            runValidators:true
+        const todos = await Todo.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
         });
-        const {id} =req.params
-        const {status}=req.body
-        console.log(id,status)
-        res.redirect('/todos');  
+        const { id } = req.params
+        const { status } = req.body
+        console.log(id, status)
+        res.redirect('/todos');
     } catch (err) {
         res.status(404).json({
             status: 'fail',
@@ -86,10 +98,10 @@ exports.updateTodo = async (req, res) => {
 };
 
 exports.deleteTodo = async (req, res) => {
-   
+
     try {
         await Todo.findByIdAndDelete(req.params.id);
-        res.redirect('/todos');  
+        res.redirect('/todos');
     } catch (err) {
         res.status(404).json({
             status: 'fail',

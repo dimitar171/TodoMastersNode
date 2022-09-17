@@ -18,6 +18,29 @@
                 <a href="/todos/create">Add a new TODO</a>
             </p>
             <table class="table">
+                   <!-- Search box-->
+    <form method="GET" action="/todos">
+        <div class="form-actions no-color">
+            <p>
+                Find by Title: <input type="text" name="searchString"/>
+                <input type="submit" value="Search" class="btn btn-default" /> |
+                <a href="/todos">Back to All Todos</a>
+            </p>
+        </div>
+    </form>
+                    <!-- Number of todos on page selector-->
+
+    <form method="GET" action="/todos">
+        <label for="pageSize">Number of TODOs on page:</label>
+        <select name="pageSize" onchange="javascript:this.form.submit()">
+            <option >Select page Size</option>
+            <option value=3>3</option>
+            <option value=6>6</option>
+            <option value=50>50</option>
+            <option value=100>100</option>
+        </select>
+    </form>
+
                 <thead>
                     <tr>
                         <th>
@@ -37,7 +60,13 @@
                             UpdatedAtDate
                         </th>
                         <th>
-                            Status
+                            <form method="GET" action="/todos">
+                                <select name="checked"  onchange="javascript:this.form.submit()">
+                                    <option >Status</option>
+                                    <option value=1>Checked</option>
+                                    <option value=0>Unchecked</option>
+                                </select>
+                            </form>
                         </th>
                         <th>
                             Action
@@ -49,7 +78,7 @@
                         <% todos.map((todos,index)=>{%>
                             <tr>
                                 <td>
-                                    <a href="/todos/<%=todos._id%>">
+                                    <a href="/todos/details/<%=todos._id%>">
                                         <%=todos.title%>
                                     </a>
                                 </td>
@@ -112,6 +141,37 @@
 
                 </div>
             </table>
+            <% if (pages > 0) { %>
+                <ul class="pagination text-center">
+                    <% if (current == 1) { %>
+                        <li class="disabled" hidden><a>First</a></li>
+                    <% } else { %>
+                        <li><a href="/todos?page=1">First</a></li>
+                    <% } %>
+
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="disabled" hidden><a>...</a></li>
+                    <% } %>
+
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <li class="active"><a><%= i %></a></li>
+                        <% } else { %>
+                            <li><a href="/todos?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled" hidden><a>...</a></li>
+                        <% } %>
+                    <% } %>
+
+                    <% if (current == pages) { %>
+                        <li class="disabled" hidden><a>Last</a></li>
+                    <% } else { %>
+                        <li><a href="/todos?page=<%= pages %>">Last</a></li>
+                    <% } %>
+                </ul>
+            <% } %>
         </main>
     </div>
 

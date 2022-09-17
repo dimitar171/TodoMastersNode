@@ -16,8 +16,11 @@ router
 .post(todoController.createTodo);
 
 router
+  .route('/details/:id')
+  .get(todoController.getTodo);
+
+router
   .route('/:id')
-  .get(todoController.getTodo)
    .delete(todoController.deleteTodo);
 
 router
